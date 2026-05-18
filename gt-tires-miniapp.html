@@ -3,605 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="description" content="GT Tires - сервіс з шиномонтажу та балансування. Онлайн запис, ціни, відгуки.">
+<meta name="theme-color" content="#1a1a1f">
 <title>GT Tires Service</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
-:root{
-  --bg:#1a1a1f;
-  --bg2:#1f1f26;
-  --card:#242430;
-  --card2:#2a2a38;
-  --sh-out:-6px -6px 14px rgba(0,0,0,.6), 6px 6px 14px rgba(255,255,255,.03);
-  --sh-in:inset -3px -3px 8px rgba(0,0,0,.5), inset 3px 3px 8px rgba(255,255,255,.04);
-  --gold:#f0a500;
-  --gold2:#ff6b35;
-  --ok:#22d3a5;
-  --err:#f43f5e;
-  --tx:#ffffff;
-  --tx2:#888899;
-  --nav:64px;
-}
-
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;overflow:hidden;}
-body{background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;display:flex;flex-direction:column;}
-
-/* TOPBAR */
-.topbar{
-  background:var(--bg);
-  padding:14px 20px 10px;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid rgba(255,255,255,.04);
-  flex-shrink:0;
-}
-.tb-left{display:flex;align-items:center;gap:10px;}
-.tb-logo{
-  width:40px;height:40px;border-radius:12px;overflow:hidden;
-  box-shadow:var(--sh-out);
-}
-.tb-logo img{width:100%;height:100%;object-fit:cover;object-position:left top;}
-.tb-brand{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;}
-.tb-brand span{color:var(--gold);}
-.tb-sub{font-size:9px;color:var(--tx2);letter-spacing:.1em;text-transform:uppercase;margin-top:-2px;}
-.tb-call{
-  background:var(--card);
-  box-shadow:var(--sh-out);
-  border-radius:12px;
-  padding:9px 14px;
-  display:flex;align-items:center;gap:6px;
-  text-decoration:none;
-  color:var(--gold);
-  font-size:12px;font-weight:700;
-}
-
-/* SCROLL AREA */
-.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
-.scroll::-webkit-scrollbar{display:none;}
-
-/* NAV */
-.nav{
-  flex-shrink:0;height:var(--nav);
-  background:var(--bg);
-  border-top:1px solid rgba(255,255,255,.04);
-  display:flex;align-items:center;justify-content:space-around;
-  padding:0 10px;
-}
-.nb{
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  background:none;border:none;color:var(--tx2);
-  font-size:9px;font-weight:600;cursor:pointer;
-  font-family:'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;
-  transition:color .2s;
-  padding:8px 14px;border-radius:14px;
-}
-.nb.active{color:var(--gold);}
-.nb-icon{
-  width:42px;height:42px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--bg);
-  box-shadow:var(--sh-out);
-  font-size:18px;
-  transition:box-shadow .2s;
-}
-.nb.active .nb-icon{
-  box-shadow:var(--sh-in);
-  background:var(--card);
-}
-
-/* SCREEN */
-.screen{display:none;}
-.screen.active{display:block;animation:fadeIn .2s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* CONTENT */
-.pg{padding:16px 16px 20px;}
-
-/* CARD */
-.card{
-  background:var(--card);
-  border-radius:20px;
-  box-shadow:var(--sh-out);
-  padding:18px;
-  margin-bottom:14px;
-}
-.card-sm{
-  background:var(--card);
-  border-radius:16px;
-  box-shadow:var(--sh-out);
-  padding:14px;
-}
-
-/* HERO CARD */
-.hero-card{
-  background:var(--card);
-  border-radius:24px;
-  box-shadow:var(--sh-out);
-  overflow:hidden;
-  margin-bottom:14px;
-  position:relative;
-}
-.hero-card img{width:100%;display:block;}
-.hero-card-body{padding:16px;}
-.hero-status{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--bg);
-  box-shadow:var(--sh-in);
-  border-radius:10px;
-  padding:6px 12px;
-  font-size:12px;font-weight:600;
-  color:var(--ok);margin-bottom:12px;
-}
-.hero-status::before{content:'●';font-size:8px;}
-.hero-row{display:flex;justify-content:space-between;align-items:flex-end;}
-.hero-queue{display:flex;gap:8px;}
-.queue-pill{
-  background:var(--bg);
-  box-shadow:var(--sh-in);
-  border-radius:12px;
-  padding:10px 14px;
-  text-align:center;
-}
-.queue-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold);line-height:1;}
-.queue-lbl{font-size:9px;color:var(--tx2);text-transform:uppercase;letter-spacing:.06em;}
-
-/* GRID 2 */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
-
-/* MENU ITEMS */
-.menu-item{
-  background:var(--card);
-  border-radius:20px;
-  box-shadow:var(--sh-out);
-  padding:16px;
-  display:flex;align-items:center;gap:14px;
-  cursor:pointer;margin-bottom:10px;
-  transition:box-shadow .15s;
-  border:none;width:100%;text-align:left;
-  font-family:'Inter',sans-serif;
-}
-.menu-item:active{box-shadow:var(--sh-in);}
-.menu-icon{
-  width:48px;height:48px;border-radius:14px;
-  background:var(--bg);
-  box-shadow:var(--sh-in);
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;flex-shrink:0;
-}
-.menu-txt{flex:1;}
-.menu-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;}
-.menu-desc{font-size:11px;color:var(--tx2);}
-.menu-arr{
-  width:32px;height:32px;border-radius:10px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;box-shadow:0 4px 12px rgba(240,165,0,.3);
-}
-.menu-arr svg{width:14px;height:14px;stroke:#000;fill:none;stroke-width:2.5;}
-
-/* SECTION TITLE */
-.sec-title{
-  font-size:11px;font-weight:700;color:var(--tx2);
-  text-transform:uppercase;letter-spacing:.1em;
-  margin-bottom:12px;margin-top:4px;
-  display:flex;justify-content:space-between;align-items:center;
-}
-.sec-title a{color:var(--gold);cursor:pointer;font-weight:600;text-transform:none;letter-spacing:0;}
-
-/* TIRE CARD */
-.tire-card{
-  background:var(--card);border-radius:20px;
-  box-shadow:var(--sh-out);margin-bottom:12px;overflow:hidden;
-}
-.tire-top{padding:16px;display:flex;gap:14px;align-items:center;}
-.tire-emoji-wrap{
-  width:70px;height:70px;border-radius:16px;
-  background:var(--bg);box-shadow:var(--sh-in);
-  display:flex;align-items:center;justify-content:center;
-  font-size:36px;flex-shrink:0;
-}
-.tire-brand{font-size:17px;font-weight:800;margin-bottom:2px;}
-.tire-size{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold);letter-spacing:.06em;line-height:1;}
-.tire-badge{
-  font-size:10px;font-weight:800;padding:3px 10px;border-radius:8px;
-  display:inline-block;margin-top:5px;text-transform:uppercase;letter-spacing:.05em;
-}
-.bn{background:rgba(34,211,165,.15);color:var(--ok);}
-.bu{background:rgba(240,165,0,.15);color:var(--gold);}
-.bs{background:rgba(244,63,94,.15);color:var(--err);}
-.tire-bot{
-  padding:0 16px 16px;
-  display:flex;justify-content:space-between;align-items:center;
-}
-.tire-meta{font-size:12px;color:var(--tx2);line-height:1.5;}
-.tire-price{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--gold);letter-spacing:.04em;}
-.tire-qty{font-size:10px;color:var(--tx2);text-align:right;}
-.tire-action{padding:0 16px 16px;}
-
-/* PRICE */
-.price-cat{
-  font-size:11px;font-weight:700;color:var(--gold);
-  text-transform:uppercase;letter-spacing:.1em;
-  margin-bottom:8px;margin-top:14px;
-}
-.price-tbl{background:var(--card);border-radius:16px;box-shadow:var(--sh-out);overflow:hidden;margin-bottom:6px;}
-.price-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);}
-.price-row:last-child{border-bottom:none;}
-.price-name{font-size:13px;color:#ccc;}
-.price-val{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--gold);letter-spacing:.04em;}
-
-/* INPUT */
-.inp{
-  width:100%;padding:14px 16px;
-  background:var(--bg);
-  box-shadow:var(--sh-in);
-  border:none;border-radius:14px;
-  color:#fff;font-size:14px;font-family:'Inter',sans-serif;
-  outline:none;margin-bottom:10px;
-}
-.inp::placeholder{color:var(--tx2);}
-.inp:focus{box-shadow:inset -2px -2px 6px rgba(0,0,0,.4),inset 2px 2px 6px rgba(255,255,255,.04),0 0 0 2px rgba(240,165,0,.2);}
-
-/* BTN */
-.btn-g{
-  width:100%;padding:16px;border-radius:14px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  border:none;color:#000;font-size:14px;font-weight:900;
-  cursor:pointer;font-family:'Inter',sans-serif;
-  box-shadow:0 6px 20px rgba(240,165,0,.35);margin-bottom:10px;
-}
-.btn-d{
-  width:100%;padding:15px;border-radius:14px;
-  background:var(--card);box-shadow:var(--sh-out);
-  border:none;color:var(--tx2);font-size:13px;font-weight:700;
-  cursor:pointer;font-family:'Inter',sans-serif;
-}
-.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-
-/* ABOUT */
-.about-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);}
-.about-row:last-child{border-bottom:none;}
-.about-icon-wrap{
-  width:40px;height:40px;border-radius:12px;
-  background:var(--bg);box-shadow:var(--sh-in);
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-}
-.about-lbl{font-size:10px;color:var(--tx2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
-.about-val{font-size:14px;font-weight:600;}
-.about-val a{color:var(--gold);text-decoration:none;}
-
-.adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.adv-card{background:var(--card);border-radius:16px;box-shadow:var(--sh-out);padding:14px;text-align:center;}
-.adv-icon{font-size:24px;margin-bottom:6px;}
-.adv-txt{font-size:11px;color:var(--tx2);line-height:1.4;}
-
-/* REVIEWS */
-.rev-card{background:var(--card);border-radius:20px;box-shadow:var(--sh-out);padding:16px;margin-bottom:12px;}
-.rev-stars{color:var(--gold);font-size:16px;margin-bottom:8px;}
-.rev-txt{font-size:13px;color:#ccc;line-height:1.6;margin-bottom:12px;}
-.rev-author{display:flex;align-items:center;gap:10px;}
-.rev-av{
-  width:34px;height:34px;border-radius:10px;
-  background:linear-gradient(135deg,var(--gold),var(--gold2));
-  display:flex;align-items:center;justify-content:center;
-  font-weight:900;color:#000;font-size:14px;
-  box-shadow:0 4px 12px rgba(240,165,0,.3);
-}
-.rev-name{font-size:13px;font-weight:700;}
-.rev-date{font-size:11px;color:var(--tx2);}
-
-/* QUEUE BIG */
-.queue-big{text-align:center;padding:30px 0;}
-.queue-big-num{
-  font-family:'Bebas Neue',sans-serif;font-size:96px;
-  color:var(--gold);line-height:1;
-  text-shadow:0 0 40px rgba(240,165,0,.3);
-}
-.queue-big-lbl{font-size:14px;color:var(--tx2);margin-top:4px;}
-
-/* RATING */
-.rating-big{
-  font-family:'Bebas Neue',sans-serif;font-size:64px;
-  color:var(--gold);line-height:1;
-  text-shadow:0 0 30px rgba(240,165,0,.2);
-}
-
-/* BACK BTN */
-.back-btn{
-  display:flex;align-items:center;gap:8px;
-  background:var(--card);box-shadow:var(--sh-out);
-  border:none;border-radius:12px;
-  color:var(--gold);font-size:13px;font-weight:700;
-  cursor:pointer;font-family:'Inter',sans-serif;
-  padding:10px 16px;margin:14px 16px 0;
-}
+:root{--bg:#1a1a1f;--card:#242430;--sh-out:-6px -6px 14px rgba(0,0,0,.6),6px 6px 14px rgba(255,255,255,.03);--sh-in:inset -3px -3px 8px rgba(0,0,0,.5),inset 3px 3px 8px rgba(255,255,255,.04);--gold:#f0a500;--gold2:#ff6b35;--ok:#22d3a5;--err:#f43f5e;--tx:#fff;--tx2:#888899}*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}html,body{height:100%;overflow:hidden}body{background:var(--bg);color:var(--tx);font-family:Inter,sans-serif;display:flex;flex-direction:column}.topbar{background:var(--bg);padding:14px 20px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.04);flex-shrink:0}.tb-left{display:flex;align-items:center;gap:10px}.tb-logo{width:40px;height:40px;border-radius:12px;overflow:hidden;box-shadow:var(--sh-out)}.tb-logo img{width:100%;height:100%;object-fit:cover;object-position:left top}.tb-brand{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em}.tb-brand span{color:var(--gold)}.tb-sub{font-size:9px;color:var(--tx2);letter-spacing:.1em;text-transform:uppercase;margin-top:-2px}.tb-call{background:var(--card);box-shadow:var(--sh-out);border-radius:12px;padding:9px 14px;display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--gold);font-size:12px;font-weight:700}.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}.scroll::-webkit-scrollbar{display:none}.nav{flex-shrink:0;height:64px;background:var(--bg);border-top:1px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:space-around;padding:0 10px}.nb{display:flex;flex-direction:column;align-items:center;gap:4px;background:0;border:0;color:var(--tx2);font-size:9px;font-weight:600;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;padding:8px 14px;border-radius:14px;font-family:Inter,sans-serif}.nb.active{color:var(--gold)}.nb-icon{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--bg);box-shadow:var(--sh-out);font-size:18px;transition:box-shadow .2s}.nb.active .nb-icon{box-shadow:var(--sh-in);background:var(--card)}.screen{display:none}.screen.active{display:block;animation:fadeIn .2s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.pg{padding:16px 16px 20px}.card{background:var(--card);border-radius:20px;box-shadow:var(--sh-out);padding:18px;margin-bottom:14px}.card-sm{background:var(--card);border-radius:16px;box-shadow:var(--sh-out);padding:14px}.hero-card{background:var(--card);border-radius:24px;box-shadow:var(--sh-out);overflow:hidden;margin-bottom:14px}.hero-card img{width:100%;display:block}.hero-card-body{padding:16px}.hero-status{display:inline-flex;align-items:center;gap:6px;background:var(--bg);box-shadow:var(--sh-in);border-radius:10px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--ok);margin-bottom:12px}.hero-status::before{content:'●';font-size:8px}.hero-row{display:flex;justify-content:space-between;align-items:flex-end}.hero-queue{display:flex;gap:8px}.queue-pill{background:var(--bg);box-shadow:var(--sh-in);border-radius:12px;padding:10px 14px;text-align:center}.queue-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold);line-height:1}.queue-lbl{font-size:9px;color:var(--tx2);text-transform:uppercase;letter-spacing:.06em}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}.menu-item{background:var(--card);border-radius:20px;box-shadow:var(--sh-out);padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;margin-bottom:10px;transition:box-shadow .15s;border:0;width:100%;text-align:left;font-family:Inter,sans-serif}.menu-item:active{box-shadow:var(--sh-in)}.menu-icon{width:48px;height:48px;border-radius:14px;background:var(--bg);box-shadow:var(--sh-in);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}.menu-txt{flex:1}.menu-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}.menu-desc{font-size:11px;color:var(--tx2)}.menu-arr{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(240,165,0,.3)}.menu-arr svg{width:14px;height:14px;stroke:#000;fill:none;stroke-width:2.5}.sec-title{font-size:11px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;margin-top:4px;display:flex;justify-content:space-between;align-items:center}.sec-title a{color:var(--gold);cursor:pointer;font-weight:600;text-transform:none;letter-spacing:0}.tire-card{background:var(--card);border-radius:20px;box-shadow:var(--sh-out);margin-bottom:12px;overflow:hidden}.tire-top{padding:16px;display:flex;gap:14px;align-items:center}.tire-emoji-wrap{width:70px;height:70px;border-radius:16px;background:var(--bg);box-shadow:var(--sh-in);display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0}.tire-brand{font-size:17px;font-weight:800;margin-bottom:2px}.tire-size{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold);letter-spacing:.06em;line-height:1}.tire-badge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:8px;display:inline-block;margin-top:5px;text-transform:uppercase;letter-spacing:.05em}.bn{background:rgba(34,211,165,.15);color:var(--ok)}.bu{background:rgba(240,165,0,.15);color:var(--gold)}.bs{background:rgba(244,63,94,.15);color:var(--err)}.tire-bot{padding:0 16px 16px;display:flex;justify-content:space-between;align-items:center}.tire-meta{font-size:12px;color:var(--tx2);line-height:1.5}.tire-price{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--gold);letter-spacing:.04em}.tire-qty{font-size:10px;color:var(--tx2);text-align:right}.tire-action{padding:0 16px 16px}.price-cat{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;margin-top:14px}.price-tbl{background:var(--card);border-radius:16px;box-shadow:var(--sh-out);overflow:hidden;margin-bottom:6px}.price-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04)}.price-row:last-child{border-bottom:0}.price-name{font-size:13px;color:#ccc}.price-val{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--gold);letter-spacing:.04em}.inp{width:100%;padding:14px 16px;background:var(--bg);box-shadow:var(--sh-in);border:0;border-radius:14px;color:#fff;font-size:14px;font-family:Inter,sans-serif;outline:0;margin-bottom:10px}.inp::placeholder{color:var(--tx2)}.inp:focus{box-shadow:inset -2px -2px 6px rgba(0,0,0,.4),inset 2px 2px 6px rgba(255,255,255,.04),0 0 0 2px rgba(240,165,0,.2)}.btn-g{width:100%;padding:16px;border-radius:14px;background:linear-gradient(135deg,var(--gold),var(--gold2));border:0;color:#000;font-size:14px;font-weight:900;cursor:pointer;font-family:Inter,sans-serif;box-shadow:0 6px 20px rgba(240,165,0,.35);margin-bottom:10px}.btn-d{width:100%;padding:15px;border-radius:14px;background:var(--card);box-shadow:var(--sh-out);border:0;color:var(--tx2);font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif}.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.about-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04)}.about-row:last-child{border-bottom:0}.about-icon-wrap{width:40px;height:40px;border-radius:12px;background:var(--bg);box-shadow:var(--sh-in);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}.about-lbl{font-size:10px;color:var(--tx2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}.about-val{font-size:14px;font-weight:600}.about-val a{color:var(--gold);text-decoration:none}.adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.adv-card{background:var(--card);border-radius:16px;box-shadow:var(--sh-out);padding:14px;text-align:center}.adv-icon{font-size:24px;margin-bottom:6px}.adv-txt{font-size:11px;color:var(--tx2);line-height:1.4}.rev-card{background:var(--card);border-radius:20px;box-shadow:var(--sh-out);padding:16px;margin-bottom:12px}.rev-stars{color:var(--gold);font-size:16px;margin-bottom:8px}.rev-txt{font-size:13px;color:#ccc;line-height:1.6;margin-bottom:12px}.rev-author{display:flex;align-items:center;gap:10px}.rev-av{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:14px;box-shadow:0 4px 12px rgba(240,165,0,.3)}.rev-name{font-size:13px;font-weight:700}.rev-date{font-size:11px;color:var(--tx2)}.queue-big{text-align:center;padding:30px 0}.queue-big-num{font-family:'Bebas Neue',sans-serif;font-size:96px;color:var(--gold);line-height:1;text-shadow:0 0 40px rgba(240,165,0,.3)}.queue-big-lbl{font-size:14px;color:var(--tx2);margin-top:4px}.rating-big{font-family:'Bebas Neue',sans-serif;font-size:64px;color:var(--gold);line-height:1;text-shadow:0 0 30px rgba(240,165,0,.2)}.back-btn{display:flex;align-items:center;gap:8px;background:var(--card);box-shadow:var(--sh-out);border:0;border-radius:12px;color:var(--gold);font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;padding:10px 16px;margin:14px 16px 0}
 </style>
 </head>
 <body>
-
-<!-- TOPBAR -->
 <div class="topbar">
-  <div class="tb-left">
-    <div class="tb-logo"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgND[...]
-    <div>
-      <div class="tb-brand">GT <span>TIRES</span></div>
-      <div class="tb-sub">ТОП-СЕРВІС</div>
-    </div>
-  </div>
-  <a href="tel:+380682590196" class="tb-call">📞 068 259 01 96</a>
+<div class="tb-left">
+<div class="tb-logo"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23f0a500'/%3E%3Ctext x='50' y='60' font-size='60' font-weight='bold' text-anchor='middle' fill='%23000'%3EGT%3C/text%3E%3C/svg%3E" alt="GT Logo"></div>
+<div>
+<div class="tb-brand">GT <span>TIRES</span></div>
+<div class="tb-sub">ТОП-СЕРВІС</div>
 </div>
-
-<!-- SCROLL -->
+</div>
+<a href="tel:+380682590196" class="tb-call">📞 068 259 01 96</a>
+</div>
 <div class="scroll">
-
-<!-- HOME -->
 <div id="s-home" class="screen active">
 <div class="pg">
-
-  <!-- Hero -->
-  <div class="hero-card">
-    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjI[...]
-    <div class="hero-card-body">
-      <div class="hero-status">Працюємо · До 20:00</div>
-      <div class="hero-row">
-        <div class="hero-queue">
-          <div class="queue-pill"><div class="queue-num">3</div><div class="queue-lbl">В черзі</div></div>
-          <div class="queue-pill"><div class="queue-num">~45</div><div class="queue-lbl">Хвилин</div></div>
-          <div class="queue-pill"><div class="queue-num">2</div><div class="queue-lbl">Майстри</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Menu -->
-  <div class="sec-title">Розділи</div>
-
-  <button class="menu-item" onclick="go('services')">
-    <div class="menu-icon">🔧</div>
-    <div class="menu-txt"><div class="menu-name">Послуги та ціни</div><div class="menu-desc">Грузове, легкове, ремонт</div></div>
-    <div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-  </button>
-
-  <button class="menu-item" onclick="go('tires')">
-    <div class="menu-icon">🛞</div>
-    <div class="menu-txt"><div class="menu-name">Шини в наявності</div><div class="menu-desc">Нові, б/у, колеса на реалізацію</div></div>
-    <div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-  </button>
-
-  <button class="menu-item" onclick="go('booking')">
-    <div class="menu-icon">📅</div>
-    <div class="menu-txt"><div class="menu-name">Записатись на сервіс</div><div class="menu-desc">Передзвонимо за 15 хвилин</div></div>
-    <div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-  </button>
-
-  <button class="menu-item" onclick="go('reviews')">
-    <div class="menu-icon">⭐</div>
-    <div class="menu-txt"><div class="menu-name">Відгуки · 4.9 ★</div><div class="menu-desc">47 задоволених клієнтів</div></div>
-    <div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-  </button>
-
-  <button class="menu-item" onclick="go('queue')">
-    <div class="menu-icon">🚦</div>
-    <div class="menu-txt"><div class="menu-name">Жива черга</div><div class="menu-desc">Скільки зараз чекати</div></div>
-    <div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-  </button>
-
-  <button class="menu-item" onclick="go('about')">
-    <div class="menu-icon">📍</div>
-    <div class="menu-txt"><div class="menu-name">Контакти та адреса</div><div class="menu-desc">с. Велика Димарка, вул. Соборна 106</div></div>
-    <div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-  </button>
-
+<div class="hero-card">
+<svg viewBox="0 0 400 200" style="width:100%;height:auto;display:block"><rect width="400" height="200" fill="%23242430"/><circle cx="200" cy="100" r="80" fill="%23f0a500"/><text x="200" y="120" font-size="50" font-weight="bold" text-anchor="middle" fill="%23000">TIRES</text></svg>
+<div class="hero-card-body">
+<div class="hero-status">Працюємо · До 20:00</div>
+<div class="hero-row">
+<div class="hero-queue">
+<div class="queue-pill"><div class="queue-num">3</div><div class="queue-lbl">В черзі</div></div>
+<div class="queue-pill"><div class="queue-num">~45</div><div class="queue-lbl">Хвилин</div></div>
+<div class="queue-pill"><div class="queue-num">2</div><div class="queue-lbl">Майстри</div></div>
 </div>
 </div>
-
-<!-- SERVICES -->
+</div>
+</div>
+<div class="sec-title">Розділи</div>
+<button class="menu-item" onclick="go('services')"><div class="menu-icon">🔧</div><div class="menu-txt"><div class="menu-name">Послуги та ціни</div><div class="menu-desc">Грузове, легкове, ремонт</div></div><div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+<button class="menu-item" onclick="go('tires')"><div class="menu-icon">🛞</div><div class="menu-txt"><div class="menu-name">Шини в наявності</div><div class="menu-desc">Нові, б/у, колеса на реалізацію</div></div><div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+<button class="menu-item" onclick="go('booking')"><div class="menu-icon">📅</div><div class="menu-txt"><div class="menu-name">Записатись на сервіс</div><div class="menu-desc">Передзвонимо за 15 хвилин</div></div><div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+<button class="menu-item" onclick="go('reviews')"><div class="menu-icon">⭐</div><div class="menu-txt"><div class="menu-name">Відгуки · 4.9 ★</div><div class="menu-desc">47 задоволених клієнтів</div></div><div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+<button class="menu-item" onclick="go('queue')"><div class="menu-icon">🚦</div><div class="menu-txt"><div class="menu-name">Жива черга</div><div class="menu-desc">Скільки зараз чекати</div></div><div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+<button class="menu-item" onclick="go('about')"><div class="menu-icon">📍</div><div class="menu-txt"><div class="menu-name">Контакти та адреса</div><div class="menu-desc">с. Велика Димарка, вул. Соборна 106</div></div><div class="menu-arr"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+</div>
+</div>
 <div id="s-services" class="screen">
-  <button class="back-btn" onclick="go('home')">← Назад</button>
-  <div class="pg">
-    <div class="price-cat">🚛 Грузове / Напівпричіп</div>
-    <div class="price-tbl">
-      <div class="price-row"><div class="price-name">Шиномонтаж ВА (без вантажівки)</div><div class="price-val">₴800</div></div>
-      <div class="price-row"><div class="price-name">Шиномонтаж ВА (з вантажівкою)</div><div class="price-val">₴1 000</div></div>
-      <div class="price-row"><div class="price-name">Балансування</div><div class="price-val">₴300</div></div>
-      <div class="price-row"><div class="price-name">Ремонт камери</div><div class="price-val">₴250</div></div>
-      <div class="price-row"><div class="price-name">Вентиль TR13</div><div class="price-val">₴200</div></div>
-      <div class="price-row"><div class="price-name">Зрізання гайки</div><div class="price-val">₴250</div></div>
-    </div>
-    <div class="price-cat">🚗 Легкове</div>
-    <div class="price-tbl">
-      <div class="price-row"><div class="price-name">Монтаж/демонтаж R13–R16</div><div class="price-val">₴150</div></div>
-      <div class="price-row"><div class="price-name">Монтаж/демонтаж R17–R20</div><div class="price-val">₴200</div></div>
-      <div class="price-row"><div class="price-name">Монтаж/демонтаж R21+</div><div class="price-val">₴250</div></div>
-      <div class="price-row"><div class="price-name">Балансування</div><div class="price-val">₴250</div></div>
-      <div class="price-row"><div class="price-name">Ремонт (косметичний)</div><div class="price-val">₴35/см²</div></div>
-      <div class="price-row"><div class="price-name">Ремонт А+В</div><div class="price-val">₴300</div></div>
-      <div class="price-row"><div class="price-name">Вентиль TR414</div><div class="price-val">₴250</div></div>
-    </div>
-    <button class="btn-g" onclick="go('booking')">📅 Записатись</button>
-  </div>
+<button class="back-btn" onclick="go('home')">← Назад</button>
+<div class="pg">
+<div class="price-cat">🚛 Грузове / Напівпричіп</div>
+<div class="price-tbl">
+<div class="price-row"><div class="price-name">Шиномонтаж ВА (без вантажівки)</div><div class="price-val">₴800</div></div>
+<div class="price-row"><div class="price-name">Шиномонтаж ВА (з вантажівкою)</div><div class="price-val">₴1 000</div></div>
+<div class="price-row"><div class="price-name">Балансування</div><div class="price-val">₴300</div></div>
+<div class="price-row"><div class="price-name">Ремонт камери</div><div class="price-val">₴250</div></div>
+<div class="price-row"><div class="price-name">Вентиль TR13</div><div class="price-val">₴200</div></div>
+<div class="price-row"><div class="price-name">Зрізання гайки</div><div class="price-val">₴250</div></div>
 </div>
-
-<!-- TIRES -->
+<div class="price-cat">🚗 Легкове</div>
+<div class="price-tbl">
+<div class="price-row"><div class="price-name">Монтаж/демонтаж R13–R16</div><div class="price-val">₴150</div></div>
+<div class="price-row"><div class="price-name">Монтаж/демонтаж R17–R20</div><div class="price-val">₴200</div></div>
+<div class="price-row"><div class="price-name">Монтаж/демонтаж R21+</div><div class="price-val">₴250</div></div>
+<div class="price-row"><div class="price-name">Балансування</div><div class="price-val">₴250</div></div>
+<div class="price-row"><div class="price-name">Ремонт (косметичний)</div><div class="price-val">₴35/см²</div></div>
+<div class="price-row"><div class="price-name">Ремонт А+В</div><div class="price-val">₴300</div></div>
+<div class="price-row"><div class="price-name">Вентиль TR414</div><div class="price-val">₴250</div></div>
+</div>
+<button class="btn-g" onclick="go('booking')">📅 Записатись</button>
+</div>
+</div>
 <div id="s-tires" class="screen">
-  <button class="back-btn" onclick="go('home')">← Назад</button>
-  <div class="pg">
-    <div class="tire-card">
-      <div class="tire-top"><div class="tire-emoji-wrap">🛞</div><div><div class="tire-brand">Michelin Energy</div><div class="tire-size">205/55 R16</div><div class="tire-badge bn">Нові</div></div></div>
-      <div class="tire-bot"><div class="tire-meta">Літо · 4 шт · 2023р</div><div><div class="tire-price">₴4 200</div><div class="tire-qty">✅ В наявності</div></div></div>
-      <div class="tire-action"><button class="btn-g" onclick="book('Michelin 205/55 R16')">📩 Забронювати</button></div>
-    </div>
-    <div class="tire-card">
-      <div class="tire-top"><div class="tire-emoji-wrap">🛞</div><div><div class="tire-brand">Continental</div><div class="tire-size">225/45 R17</div><div class="tire-badge bu">Б/у 8/10</div></div></div>
-      <div class="tire-bot"><div class="tire-meta">Зима · 2 шт · Стан відмінний</div><div><div class="tire-price">₴1 800</div><div class="tire-qty">✅ 2 шт</div></div></div>
-      <div class="tire-action"><button class="btn-g" onclick="book('Continental 225/45 R17')">📩 Забронювати</button></div>
-    </div>
-    <div class="tire-card">
-      <div class="tire-top"><div class="tire-emoji-wrap">🛞</div><div><div class="tire-brand">Nokian Hakkapeliitta</div><div class="tire-size">195/65 R15</div><div class="tire-badge bs">АКЦ -50%</div></div></div>
-      <div class="tire-bot"><div class="tire-meta">Зима · Нові · 2024р</div><div><div class="tire-price">₴5 600</div><div class="tire-qty">⚡ 1 компл</div></div></div>
-      <div class="tire-action"><button class="btn-g" onclick="book('Nokian 195/65 R15')">📩 Забронювати</button></div>
-    </div>
-    <div class="card" style="text-align:center">
-      <div style="font-size:36px;margin-bottom:8px">♻️</div>
-      <div style="font-size:16px;font-weight:800;margin-bottom:6px">Колеса на реалізацію</div>
-      <div style="font-size:12px;color:var(--tx2);margin-bottom:14px;line-height:1.6">Залиш свої шини — ми продамо!<br>Безкоштовне зберігання · Чесна ціна</div>
-      <button class="btn-g" onclick="go('booking')">Дізнатись умови</button>
-    </div>
-  </div>
+<button class="back-btn" onclick="go('home')">← Назад</button>
+<div class="pg">
+<div class="tire-card"><div class="tire-top"><div class="tire-emoji-wrap">🛞</div><div><div class="tire-brand">Michelin Energy</div><div class="tire-size">205/55 R16</div><div class="tire-badge bn">Нові</div></div></div><div class="tire-bot"><div class="tire-meta">Літо · 4 шт · 2023р</div><div><div class="tire-price">₴4 200</div><div class="tire-qty">✅ В наявності</div></div></div><div class="tire-action"><button class="btn-g" onclick="book('Michelin 205/55 R16')">📩 Забронювати</button></div></div>
+<div class="tire-card"><div class="tire-top"><div class="tire-emoji-wrap">🛞</div><div><div class="tire-brand">Continental</div><div class="tire-size">225/45 R17</div><div class="tire-badge bu">Б/у 8/10</div></div></div><div class="tire-bot"><div class="tire-meta">Зима · 2 шт · Стан відмінний</div><div><div class="tire-price">₴1 800</div><div class="tire-qty">✅ 2 шт</div></div></div><div class="tire-action"><button class="btn-g" onclick="book('Continental 225/45 R17')">📩 Забронювати</button></div></div>
+<div class="tire-card"><div class="tire-top"><div class="tire-emoji-wrap">🛞</div><div><div class="tire-brand">Nokian Hakkapeliitta</div><div class="tire-size">195/65 R15</div><div class="tire-badge bs">АКЦ -50%</div></div></div><div class="tire-bot"><div class="tire-meta">Зима · Нові · 2024р</div><div><div class="tire-price">₴5 600</div><div class="tire-qty">⚡ 1 компл</div></div></div><div class="tire-action"><button class="btn-g" onclick="book('Nokian 195/65 R15')">📩 Забронювати</button></div></div>
+<div class="card" style="text-align:center"><div style="font-size:36px;margin-bottom:8px">♻️</div><div style="font-size:16px;font-weight:800;margin-bottom:6px">Колеса на реалізацію</div><div style="font-size:12px;color:var(--tx2);margin-bottom:14px;line-height:1.6">Залиш свої шини — ми продамо!<br>Безкоштовне зберігання · Чесна ціна</div><button class="btn-g" onclick="go('booking')">Дізнатись умови</button></div>
 </div>
-
-<!-- BOOKING -->
+</div>
 <div id="s-booking" class="screen">
-  <button class="back-btn" onclick="go('home')">← Назад</button>
-  <div class="pg">
-    <div class="card">
-      <div style="font-size:15px;font-weight:800;margin-bottom:4px">📅 Запис на сервіс</div>
-      <div style="font-size:12px;color:var(--tx2);margin-bottom:18px">Передзвонимо за 15 хвилин</div>
-      <input class="inp" type="text" id="bn" placeholder="👤 Ваше ім'я *">
-      <input class="inp" type="tel" id="bp" placeholder="📞 Номер телефону *">
-      <input class="inp" type="text" id="bc" placeholder="🚗 Марка авто, номер">
-      <select class="inp" id="bs" style="appearance:none">
-        <option value="">🔧 Послуга...</option>
-        <option>Шиномонтаж легкове</option>
-        <option>Шиномонтаж грузове / TIR</option>
-        <option>Балансування</option>
-        <option>Ремонт шини</option>
-        <option>Купити шини</option>
-        <option>Реалізація шин</option>
-        <option>Інше</option>
-      </select>
-      <input class="inp" type="text" id="bnt" placeholder="💬 Коментар">
-      <button class="btn-g" onclick="send()">📩 Надіслати заявку</button>
-    </div>
-    <div style="text-align:center;color:var(--tx2);font-size:12px;margin-bottom:12px">або напряму</div>
-    <div class="btn-row">
-      <a href="tel:+380682590196" style="text-decoration:none"><button class="btn-d">📞 Телефон</button></a>
-      <a href="viber://chat?number=%2B380682590196" style="text-decoration:none"><button class="btn-d">💬 Viber</button></a>
-    </div>
-  </div>
+<button class="back-btn" onclick="go('home')">← Назад</button>
+<div class="pg">
+<div class="card">
+<div style="font-size:15px;font-weight:800;margin-bottom:4px">📅 Запис на сервіс</div>
+<div style="font-size:12px;color:var(--tx2);margin-bottom:18px">Передзвонимо за 15 хвилин</div>
+<input class="inp" type="text" id="bn" placeholder="👤 Ваше ім'я *">
+<input class="inp" type="tel" id="bp" placeholder="📞 Номер телефону *">
+<input class="inp" type="text" id="bc" placeholder="🚗 Марка авто, номер">
+<select class="inp" id="bs" style="appearance:none">
+<option value="">🔧 Послуга...</option>
+<option>Шиномонтаж легкове</option>
+<option>Шиномонтаж грузове / TIR</option>
+<option>Балансування</option>
+<option>Ремонт шини</option>
+<option>Купити шини</option>
+<option>Реалізація шин</option>
+<option>Інше</option>
+</select>
+<input class="inp" type="text" id="bnt" placeholder="💬 Коментар">
+<button class="btn-g" onclick="send()">📩 Надіслати заявку</button>
 </div>
-
-<!-- REVIEWS -->
+<div style="text-align:center;color:var(--tx2);font-size:12px;margin-bottom:12px">або напряму</div>
+<div class="btn-row">
+<a href="tel:+380682590196" style="text-decoration:none"><button class="btn-d">📞 Телефон</button></a>
+<a href="viber://chat?number=%2B380682590196" style="text-decoration:none"><button class="btn-d">💬 Viber</button></a>
+</div>
+</div>
+</div>
 <div id="s-reviews" class="screen">
-  <button class="back-btn" onclick="go('home')">← Назад</button>
-  <div class="pg">
-    <div class="card" style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
-      <div style="text-align:center;flex-shrink:0">
-        <div class="rating-big">4.9</div>
-        <div style="color:var(--gold);font-size:18px;margin-top:2px">★★★★★</div>
-        <div style="font-size:11px;color:var(--tx2);margin-top:4px">47 відгуків</div>
-      </div>
-      <div style="flex:1">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-          <span style="font-size:11px;color:var(--tx2);width:18px">5★</span>
-          <div style="flex:1;height:6px;background:var(--bg);border-radius:3px;box-shadow:var(--sh-in)"><div style="width:88%;height:100%;background:var(--gold);border-radius:3px"></div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-          <span style="font-size:11px;color:var(--tx2);width:18px">4★</span>
-          <div style="flex:1;height:6px;background:var(--bg);border-radius:3px;box-shadow:var(--sh-in)"><div style="width:10%;height:100%;background:var(--gold);border-radius:3px;opacity:.5"></div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:11px;color:var(--tx2);width:18px">3★</span>
-          <div style="flex:1;height:6px;background:var(--bg);border-radius:3px;box-shadow:var(--sh-in)"><div style="width:2%;height:100%;background:var(--gold);border-radius:3px;opacity:.3"></div></div>
-        </div>
-      </div>
-    </div>
-    <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-txt">Відмінний сервіс! Швидко, якісно, без зайвих слів. Заїжджав кілька разів.</div></div>
-    <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-txt">Дякую за чесність! Пояснили що треба зробити, показали стан шин.</div></div>
-    <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-txt">Проїжджав з пробитим колесом на фурі — допомогли терміново.</div></div>
-    <button class="btn-g" onclick="go('booking')">📅 Записатись</button>
-  </div>
+<button class="back-btn" onclick="go('home')">← Назад</button>
+<div class="pg">
+<div class="card" style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
+<div style="text-align:center;flex-shrink:0">
+<div class="rating-big">4.9</div>
+<div style="color:var(--gold);font-size:18px;margin-top:2px">★★★★★</div>
+<div style="font-size:11px;color:var(--tx2);margin-top:4px">47 відгуків</div>
 </div>
-
-<!-- QUEUE -->
+<div style="flex:1">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+<span style="font-size:11px;color:var(--tx2);width:18px">5★</span>
+<div style="flex:1;height:6px;background:var(--bg);border-radius:3px;box-shadow:var(--sh-in)"><div style="width:88%;height:100%;background:var(--gold);border-radius:3px"></div></div>
+</div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+<span style="font-size:11px;color:var(--tx2);width:18px">4★</span>
+<div style="flex:1;height:6px;background:var(--bg);border-radius:3px;box-shadow:var(--sh-in)"><div style="width:10%;height:100%;background:var(--gold);border-radius:3px;opacity:.5"></div></div>
+</div>
+<div style="display:flex;align-items:center;gap:8px">
+<span style="font-size:11px;color:var(--tx2);width:18px">3★</span>
+<div style="flex:1;height:6px;background:var(--bg);border-radius:3px;box-shadow:var(--sh-in)"><div style="width:2%;height:100%;background:var(--gold);border-radius:3px;opacity:.3"></div></div>
+</div>
+</div>
+</div>
+<div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-txt">Відмінний сервіс! Швидко, якісно, без зайвих слів. Заїжджав кілька разів.</div></div>
+<div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-txt">Дякую за чесність! Пояснили що треба зробити, показали стан шин.</div></div>
+<div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-txt">Проїжджав з пробитим колесом на фурі — допомогли терміново.</div></div>
+<button class="btn-g" onclick="go('booking')">📅 Записатись</button>
+</div>
+</div>
 <div id="s-queue" class="screen">
-  <button class="back-btn" onclick="go('home')">← Назад</button>
-  <div class="pg">
-    <div class="card" style="text-align:center">
-      <div style="font-size:12px;color:var(--tx2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Зараз в черзі</div>
-      <div class="queue-big-num">3</div>
-      <div class="queue-big-lbl">авто попереду</div>
-    </div>
-    <div class="grid2">
-      <div class="card-sm" style="text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold);line-height:1">~45</div><div style="font-size:10px;color:var(--tx2);text-transform:uppercase">хвилин очікування</div></div>
-      <div class="card-sm" style="text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--ok);line-height:1">2</div><div style="font-size:10px;color:var(--tx2);text-transform:uppercase">вільних майстрів</div></div>
-    </div>
-    <button class="btn-g" onclick="go('booking')">📅 Записатись заздалегідь</button>
-  </div>
+<button class="back-btn" onclick="go('home')">← Назад</button>
+<div class="pg">
+<div class="card" style="text-align:center">
+<div style="font-size:12px;color:var(--tx2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Зараз в черзі</div>
+<div class="queue-big-num">3</div>
+<div class="queue-big-lbl">авто попереду</div>
 </div>
-
-<!-- ABOUT -->
+<div class="grid2">
+<div class="card-sm" style="text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold);line-height:1">~45</div><div style="font-size:10px;color:var(--tx2);text-transform:uppercase">хвилин очікування</div></div>
+<div class="card-sm" style="text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--ok);line-height:1">2</div><div style="font-size:10px;color:var(--tx2);text-transform:uppercase">вільних майстрів</div></div>
+</div>
+<button class="btn-g" onclick="go('booking')">📅 Записатись заздалегідь</button>
+</div>
+</div>
 <div id="s-about" class="screen">
-  <button class="back-btn" onclick="go('home')">← Назад</button>
-  <div class="pg">
-    <div class="card">
-      <div class="about-row"><div class="about-icon-wrap">📍</div><div><div class="about-lbl">Адреса</div><div class="about-val">с. Велика Димарка, вул. Соборна 106</div></div></div>
-      <div class="about-row"><div class="about-icon-wrap">📞</div><div><div class="about-lbl">Телефон / Viber</div><div class="about-val"><a href="tel:+380682590196">+38 068 259 01 96</a></div></div></div>
-      <div class="about-row"><div class="about-icon-wrap">🕒</div><div><div class="about-lbl">Графік роботи</div><div class="about-val">Пн–Сб: 08:00 – 20:00</div></div></div>
-      <div class="about-row"><div class="about-icon-wrap">🚛</div><div><div class="about-lbl">Спеціалізація</div><div class="about-val">Грузове, легкове, TIR, спецтехніка</div></div></div>
-    </div>
-    <div class="adv-grid" style="margin-bottom:14px">
-      <div class="adv-card"><div class="adv-icon">🏆</div><div class="adv-txt">Гарантія на всі роботи</div></div>
-      <div class="adv-card"><div class="adv-icon">⚡</div><div class="adv-txt">Швидкий сервіс</div></div>
-      <div class="adv-card"><div class="adv-icon">💎</div><div class="adv-txt">Професійний підхід</div></div>
-      <div class="adv-card"><div class="adv-icon">🤝</div><div class="adv-txt">Чесно та відповідально</div></div>
-    </div>
-    <div class="btn-row">
-      <button class="btn-g" onclick="go('booking')" style="margin:0">📅 Записатись</button>
-      <a href="tel:+380682590196" style="text-decoration:none;display:block"><button class="btn-d">📞 Дзвонити</button></a>
-    </div>
-  </div>
+<button class="back-btn" onclick="go('home')">← Назад</button>
+<div class="pg">
+<div class="card">
+<div class="about-row"><div class="about-icon-wrap">📍</div><div><div class="about-lbl">Адреса</div><div class="about-val">с. Велика Димарка, вул. Соборна 106</div></div></div>
+<div class="about-row"><div class="about-icon-wrap">📞</div><div><div class="about-lbl">Телефон / Viber</div><div class="about-val"><a href="tel:+380682590196">+38 068 259 01 96</a></div></div></div>
+<div class="about-row"><div class="about-icon-wrap">🕒</div><div><div class="about-lbl">Графік роботи</div><div class="about-val">Пн–Сб: 08:00 – 20:00</div></div></div>
+<div class="about-row"><div class="about-icon-wrap">🚛</div><div><div class="about-lbl">Спеціалізація</div><div class="about-val">Грузове, легкове, TIR, спецтехніка</div></div></div>
 </div>
-
-</div><!-- /scroll -->
-
-<!-- NAV -->
+<div class="adv-grid" style="margin-bottom:14px">
+<div class="adv-card"><div class="adv-icon">🏆</div><div class="adv-txt">Гарантія на всі роботи</div></div>
+<div class="adv-card"><div class="adv-icon">⚡</div><div class="adv-txt">Швидкий сервіс</div></div>
+<div class="adv-card"><div class="adv-icon">💎</div><div class="adv-txt">Професійний підхід</div></div>
+<div class="adv-card"><div class="adv-icon">🤝</div><div class="adv-txt">Чесно та відповідально</div></div>
+</div>
+<div class="btn-row">
+<button class="btn-g" onclick="go('booking')" style="margin:0">📅 Записатись</button>
+<a href="tel:+380682590196" style="text-decoration:none;display:block"><button class="btn-d">📞 Дзвонити</button></a>
+</div>
+</div>
+</div>
+</div>
 <nav class="nav">
-  <button class="nb active" id="nb-home" onclick="go('home')">
-    <div class="nb-icon">🏠</div>Головна
-  </button>
-  <button class="nb" id="nb-tires" onclick="go('tires')">
-    <div class="nb-icon">🛞</div>Шини
-  </button>
-  <button class="nb" id="nb-booking" onclick="go('booking')">
-    <div class="nb-icon">📅</div>Запис
-  </button>
-  <button class="nb" id="nb-reviews" onclick="go('reviews')">
-    <div class="nb-icon">⭐</div>Відгуки
-  </button>
-  <button class="nb" id="nb-about" onclick="go('about')">
-    <div class="nb-icon">📍</div>Контакти
-  </button>
+<button class="nb active" id="nb-home" onclick="go('home')"><div class="nb-icon">🏠</div>Головна</button>
+<button class="nb" id="nb-tires" onclick="go('tires')"><div class="nb-icon">🛞</div>Шини</button>
+<button class="nb" id="nb-booking" onclick="go('booking')"><div class="nb-icon">📅</div>Запис</button>
+<button class="nb" id="nb-reviews" onclick="go('reviews')"><div class="nb-icon">⭐</div>Відгуки</button>
+<button class="nb" id="nb-about" onclick="go('about')"><div class="nb-icon">📍</div>Контакти</button>
 </nav>
-
-<script>
-var _cur='home';
-function go(s){
-  document.querySelectorAll('.screen').forEach(function(e){e.classList.remove('active');});
-  document.querySelectorAll('.nb').forEach(function(e){e.classList.remove('active');});
-  document.getElementById('s-'+s).classList.add('active');
-  var nb=document.getElementById('nb-'+s);
-  if(nb) nb.classList.add('active');
-  document.querySelector('.scroll').scrollTop=0;
-  _cur=s;
-}
-function book(n){
-  go('booking');
-  setTimeout(function(){
-    var s=document.getElementById('bs');if(s)s.value='Купити шини';
-    var nt=document.getElementById('bnt');if(nt)nt.value='Цікавить: '+n;
-  },100);
-}
-function send(){
-  var n=(document.getElementById('bn')||{}).value||'';
-  var p=(document.getElementById('bp')||{}).value||'';
-  if(!n.trim()||!p.trim()){alert('Введіть імя та телефон');return;}
-  window.open('https://t.me/+380682590196','_blank');
-  ['bn','bp','bc','bs','bnt'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
-  alert('✅ Дякуємо! Звяжемось найближчим часом.');
-}
-if(window.Telegram&&window.Telegram.WebApp){window.Telegram.WebApp.expand();window.Telegram.WebApp.ready();}
-</script>
+<script>function go(e){document.querySelectorAll(".screen").forEach(t=>t.classList.remove("active")),document.querySelectorAll(".nb").forEach(t=>t.classList.remove("active")),document.getElementById("s-"+e).classList.add("active"),(t=document.getElementById("nb-"+e))&&t.classList.add("active"),document.querySelector(".scroll").scrollTop=0;var t}function book(e){go("booking"),setTimeout(function(){var t=document.getElementById("bs");t&&(t.value="Купити шини");var n=document.getElementById("bnt");n&&(n.value="Цікавить: "+e)},100)}function send(){var e=(document.getElementById("bn")||{}).value||"",t=(document.getElementById("bp")||{}).value||"";e.trim()&&t.trim()?(window.open("https://t.me/+380682590196","_blank"),["bn","bp","bc","bs","bnt"].forEach(function(e){var t=document.getElementById(e);t&&(t.value="")}),alert("✅ Дякуємо! Звяжемось найближчим часом.")):alert("Введіть імя та телефон")}window.Telegram&&window.Telegram.WebApp&&(window.Telegram.WebApp.expand(),window.Telegram.WebApp.ready());</script>
 </body>
 </html>
